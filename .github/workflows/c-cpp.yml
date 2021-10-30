@@ -1,0 +1,57 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#include<cctype>
+#include<string>
+#include<sstream>
+using namespace std;
+int xx[2000][6];
+void ej(int n,int p){
+    int a[8]={0};
+    int j=0;
+    int k=0;
+    while(n!=0){
+        a[j]=n%2;
+        n/=2;
+        j++;
+    }
+    for(int h=5;h>=0;h--){
+        xx[p][k]=a[h];
+        k++;
+    }
+}
+char da[]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-";
+int main()
+{
+    int c[2000];
+    int a[12000];
+    char ch[2000];
+    int b[2000];
+    cin>>ch;
+    int j=0;
+    for(int i=0;i<strlen(ch);i++){
+        for(int g=0;g>-1;g++){
+            if(da[g]==ch[i])
+            {
+                b[i]=g;
+                break;
+            }
+        }
+    }
+    for(int i=0;i<strlen(ch);i++){
+        ej(b[i],i);
+    }
+    for(int i=0;i<strlen(ch);i++)
+    {
+        for(int h=0;h<6;h++){
+            a[i*6+h]=xx[i][h];
+        }
+    }
+    for(int i=0;i<strlen(ch)*6;i=i+8){
+        c[j++]=a[i]*128+a[i+1]*64+a[i+2]*32+a[i+3]*16+a[i+4]*8+a[i+5]*4+a[i+6]*2+a[i+7];
+    }
+    for(int i=0;i<j;i++)
+        cout<<(char)c[i];
+}
